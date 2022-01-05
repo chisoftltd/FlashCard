@@ -1,12 +1,20 @@
 from tkinter import *
-import os
+import pandas
 
-#   --------------------------------------- CONSTANTS -----------------------------------------------
+#   --------------------------------------- CONSTANTS -------------------------------------------
 FONT_NAME = "Ariel"
 BACKGROUND_COLOR = "#B1DDC6"
 
+#   ---------------------- CARD & WORD FLASHING TRANSLATION MECHANISM ----------------------------
+data = pandas.read_csv("data/french_words.csv")
+print(data["French"])
 
-#   --------------------------------------- UI SETUP ------------------------------------------------
+
+def next_card():
+    pass
+
+
+#   --------------------------------------- UI SETUP ---------------------------------------------
 window = Tk()
 window.title("Flash Card")
 window.config(padx=50, pady=50, bg=BACKGROUND_COLOR)
