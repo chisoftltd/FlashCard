@@ -5,7 +5,7 @@ import random
 #   --------------------------------------- CONSTANTS -------------------------------------------
 FONT_NAME = "Ariel"
 BACKGROUND_COLOR = "#B1DDC6"
-selected_word = []
+selected_word = {}
 
 #   -------------------------------- CARD & WORD FLASHING  MECHANISM -----------------------------
 data = pandas.read_csv("data/french_words.csv")
@@ -29,7 +29,15 @@ def flip_card():
     canvas.itemconfig(canvas_front, image=card_back)
 
 
-#   --------------------------------------- UI SETUP ---------------------------------------------
+#   --------------------------- REMOVE KNOWN WORD FROM THE DICT ------------------------------------
+def is_known():
+    to_learn.remove(selected_word)
+    new_data = pandas.DataFrame(to_learn)
+    new_data.to_csv("data/words_to_know.csv")
+    next_card()
+
+
+#   ------------------------------------------ UI SETUP --------------------------------------------
 window = Tk()
 window.title("Flash Card")
 window.config(padx=50, pady=50, bg=BACKGROUND_COLOR)
@@ -45,7 +53,7 @@ card_word = canvas.create_text(400, 300, text="", fill="black", font=(FONT_NAME,
 canvas.grid(row=0, column=0, columnspan=2)
 
 good_image = PhotoImage(file="images/right.png")
-canvas_good = Button(image=good_image, highlightthickness=0, command=next_card)
+canvas_good = Button(image=good_image, highlightthickness=0, command=is_known)
 canvas_good.grid(row=1, column=1)
 
 x_image = PhotoImage(file="images/wrong.png")
